@@ -1,0 +1,21 @@
+{
+    "mymeritApp": {
+        "myMeritUser" : {
+            "home": {
+                "title": "My Merit Users",
+                "createLabel": "Create a new My Merit User",
+                "createOrEditLabel": "Create or edit a My Merit User"
+            },
+            "created": "A new My Merit User is created with identifier {{ param }}",
+            "updated": "A My Merit User is updated with identifier {{ param }}",
+            "deleted": "A My Merit User is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete My Merit User {{ id }}?"
+            },
+            "detail": {
+                "title": "My Merit User"
+            },
+            "user": "User"
+        }
+    }
+}

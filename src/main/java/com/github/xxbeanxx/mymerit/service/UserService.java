@@ -1,8 +1,10 @@
 package com.github.xxbeanxx.mymerit.service;
 
 import com.github.xxbeanxx.mymerit.domain.Authority;
+import com.github.xxbeanxx.mymerit.domain.MyMeritUser;
 import com.github.xxbeanxx.mymerit.domain.User;
 import com.github.xxbeanxx.mymerit.repository.AuthorityRepository;
+import com.github.xxbeanxx.mymerit.repository.MyMeritUserRepository;
 import com.github.xxbeanxx.mymerit.repository.PersistentTokenRepository;
 import com.github.xxbeanxx.mymerit.config.Constants;
 import com.github.xxbeanxx.mymerit.repository.UserRepository;
@@ -35,14 +37,19 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final MyMeritUserRepository myMeritUserRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     private final PersistentTokenRepository persistentTokenRepository;
 
     private final AuthorityRepository authorityRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, PersistentTokenRepository persistentTokenRepository, AuthorityRepository authorityRepository) {
+    public UserService(UserRepository userRepository, MyMeritUserRepository myMeritUserRepository,
+    		PasswordEncoder passwordEncoder, PersistentTokenRepository persistentTokenRepository,
+    		AuthorityRepository authorityRepository) {
         this.userRepository = userRepository;
+        this.myMeritUserRepository = myMeritUserRepository;
         this.passwordEncoder = passwordEncoder;
         this.persistentTokenRepository = persistentTokenRepository;
         this.authorityRepository = authorityRepository;
@@ -109,6 +116,13 @@ public class UserService {
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
+
+        // Create MyMeritUser entity
+        MyMeritUser newMyMeritUser = new MyMeritUser();
+        newMyMeritUser.setUser(newUser);
+        myMeritUserRepository.save(newMyMeritUser);
+        log.debug("Created Information for MyMeritUser: {}", newMyMeritUser);
+
         return newUser;
     }
 
